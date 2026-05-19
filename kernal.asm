@@ -2,12 +2,6 @@
     org 0x8000
 
     start:
-        mov ax,0x0800
-        mov ds,ax
-        mov es,ax
-        mov ss,ax
-        mov sp,0xB000
-
         mov si,Msg
         call print
 

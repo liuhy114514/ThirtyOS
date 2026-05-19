@@ -1,6 +1,6 @@
-NASM = ..\Tools\nasm-3.01\nasm.exe
-QEMU = ..\Tools\qemu-i386\qemu.exe
-CRTIMG = ..\Tools\CrtImg.exe
+NASM = .\Tools\nasm-3.01\nasm.exe
+QEMU = .\Tools\qemu-i386\qemu.exe
+CRTIMG = .\Tools\CrtImg.exe
 
 all: os.img
 
@@ -18,3 +18,4 @@ run: os.img
 clean:
 	del *.bin
 	del *.img
+	del *.o
