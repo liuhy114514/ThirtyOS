@@ -5,6 +5,7 @@ bits 16
         mov si,Msg
         call print
 
+
         cli
         lgdt [gdt_desc]
         
@@ -24,8 +25,26 @@ print:
     jmp print
 end:
     ret
+    
+; ------------idt----------------
 
-Msg db "This is Kernal!",0x0d,0x0a,0
+idt:
+    times (256 * 8) db 0 ; 256 个项
+idtr:
+    dw (256 * 8)  - 1   ; size
+    dd idt              ; base
+
+extern isr0_handler
+isr0_Entry:
+    mov eax,isr0_handler
+    mov word[idt+0], ax
+    mov word[idt+2], 0x0008
+    mov word[idt+4], 0x8e00
+    shr eax,16 ; 取高16位
+    mov word[idt+6], ax
+    
+
+; ------------gdt----------------
 
 ; base: 2 flags: 1 limit:1 AB:2 base:6 limit:4
 gdt:
@@ -38,3 +57,6 @@ gdt:
 gdt_desc: ; gdtr
     dw gdt_desc - gdt - 1
     dd gdt
+
+; ---------constants-------------
+Msg db "This is Kernal!",0x0d,0x0a,0
