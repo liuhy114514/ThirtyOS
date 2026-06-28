@@ -7,11 +7,8 @@
         mov sp,0x7c00
         mov ds,ax
         mov es,ax
-
-        mov si,Text
-        call print
-
         call Read ; 读扇区，为内核做准备
+
         jmp 0x0800:0x0000
     print:
         mov al,[si]
@@ -25,7 +22,7 @@
         ret
     Read:
         mov ah,0x02
-        mov al,15
+        mov al,60
         mov ch,0
         mov cl,2
         mov dh,0
@@ -48,6 +45,5 @@
 
 OK db "Done!",0x0d,0x0a,0
 Error_Text db "Disk Error!",0x0d,0x0a,0
-Text db "starting...",0x0d,0x0a,0
 times 510-($-$$) db 0
 dw 0xAA55
